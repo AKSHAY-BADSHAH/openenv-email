@@ -1,43 +1,38 @@
-from app.models import Observation, Action
-from app.tasks import task_easy, task_medium, task_hard
-from app.grader import grade_easy, grade_medium, grade_hard
+from app.tasks.task_easy import get_task as easy
+from app.tasks.task_medium import get_task as medium
+from app.tasks.task_hard import get_task as hard
+from app.grader import grade
 
 class EmailEnv:
 
     def __init__(self):
-        self.tasks = [
-            ("easy", task_easy.get_task, grade_easy),
-            ("medium", task_medium.get_task, grade_medium),
-            ("hard", task_hard.get_task, grade_hard)
-        ]
-        self.current_task_index = 0
-        self.done = False
+        self.tasks = [easy(), medium(), hard()]
+        self.current_index = 0
 
+    # ✅ RESET
     def reset(self):
-        self.current_task_index = 0
-        self.done = False
+        self.current_index = 0
+        return self.tasks[self.current_index]
 
-        task_name, task_func, _ = self.tasks[self.current_task_index]
-        self.current_input = task_func()
+    # ✅ STEP
+    def step(self, action):
+        task = self.tasks[self.current_index]
 
-        return Observation(email_text=self.current_input)
+        reward = grade(task.email_text, action.response)
 
-    def step(self, action: Action):
-        task_name, task_func, grader = self.tasks[self.current_task_index]
+        self.current_index += 1
+        done = self.current_index >= len(self.tasks)
 
-        reward = grader(action.response)
+        if not done:
+            next_obs = self.tasks[self.current_index]
+        else:
+            next_obs = task  # last observation
 
-        self.current_task_index += 1
+        return next_obs, float(reward), bool(done), {}
 
-        if self.current_task_index >= len(self.tasks):
-            self.done = True
-            return Observation(email_text="All tasks completed"), reward, True, {}
-
-        next_task = self.tasks[self.current_task_index][1]()
-        return Observation(email_text=next_task), reward, False, {}
-
+    # ✅ STATE (IMPORTANT FOR VALIDATION)
     def state(self):
         return {
-            "task_index": self.current_task_index,
-            "done": self.done
+            "current_index": self.current_index,
+            "total_tasks": len(self.tasks)
         }
