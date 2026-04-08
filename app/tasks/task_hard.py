@@ -1,3 +1,6 @@
+from app.models import Observation
+
 def get_task():
-    return """Write a professional reply:
-Email: Can we reschedule the meeting to tomorrow at 5 PM?"""
+    return Observation(
+        email_text="Write a professional reply:\nCan we reschedule meeting to tomorrow?"
+    )
