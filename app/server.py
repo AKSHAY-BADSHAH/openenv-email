@@ -3,20 +3,20 @@ from app.env import EmailEnv
 from app.models import Action
 
 app = FastAPI()
-
 env = EmailEnv()
 
-# ===============================
+# ✅ ROOT (IMPORTANT)
+@app.get("/")
+def home():
+    return {"message": "OpenEnv Email Environment Running"}
+
 # RESET
-# ===============================
 @app.post("/reset")
 def reset():
     obs = env.reset()
     return {"observation": obs.dict()}
 
-# ===============================
 # STEP
-# ===============================
 @app.post("/step")
 def step(action: Action):
     obs, reward, done, info = env.step(action)
@@ -27,9 +27,7 @@ def step(action: Action):
         "info": info
     }
 
-# ===============================
 # STATE
-# ===============================
 @app.get("/state")
 def state():
     return env.state()
