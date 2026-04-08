@@ -1,22 +1,15 @@
-from transformers import pipeline, GenerationConfig
+from transformers import pipeline
 from app.env import EmailEnv
 from app.models import Action
 from app.logger import log_task
 
 # ===============================
-# Load model
+# Load Better Model (IMPORTANT)
 # ===============================
-generator = pipeline("text2text-generation", model="google/flan-t5-small")
-
-# Proper generation config (NO warnings)
-gen_config = GenerationConfig(
-    max_new_tokens=50,
-    temperature=0.7,
-    do_sample=True
+generator = pipeline(
+    "text2text-generation",
+    model="google/flan-t5-small"
 )
-
-# Fix padding warning
-generator.tokenizer.pad_token_id = generator.model.config.eos_token_id
 
 # ===============================
 # Initialize Environment
@@ -28,7 +21,7 @@ print("🚀 Starting Email AI Environment...\n")
 total_reward_all = 0
 
 # ===============================
-# Run multiple episodes
+# Run Episodes
 # ===============================
 for episode in range(2):
 
@@ -41,55 +34,46 @@ for episode in range(2):
         print("📩 TASK:", obs.email_text)
 
         # ===============================
-        # Smart Prompt Engineering
+        # SMART PROMPTS (OPTIMIZED)
         # ===============================
         if "Classify" in obs.email_text:
             prompt = f"""
-You are an email classifier.
+Classify the following email as spam or important.
 
-Email:
 {obs.email_text}
 
-Answer ONLY one word:
-spam or important.
+Answer only one word: spam or important.
 """
 
         elif "Extract" in obs.email_text:
             prompt = f"""
-You are an email assistant.
+Extract name, date, and time from this email.
 
-Email:
 {obs.email_text}
 
-Extract only:
-- Name
-- Date
-- Time
+Answer format:
+Name, Date, Time
+"""
 
-Give short answer like:
-John, 15 March, 5 PM
+        elif "Write" in obs.email_text:
+            prompt = f"""
+Write a short, polite and professional reply to this email.
+
+{obs.email_text}
 """
 
         else:
-            prompt = f"""
-You are a professional assistant.
-
-Email:
-{obs.email_text}
-
-Write a short, polite and professional reply.
-"""
+            prompt = obs.email_text
 
         # ===============================
-        # Generate Response (NO warnings)
+        # GENERATE (CLEAN)
         # ===============================
         result = generator(
             prompt,
-            generation_config=gen_config
+            max_new_tokens=50
         )
 
-        # Clean output (remove prompt part)
-        reply = result[0]["generated_text"].replace(prompt, "").strip()
+        reply = result[0]["generated_text"].strip()
 
         print("🤖 AI:", reply)
 
@@ -97,7 +81,6 @@ Write a short, polite and professional reply.
         # Environment Step
         # ===============================
         action = Action(response=reply)
-
         obs, reward, done, _ = env.step(action)
 
         print("🏆 Reward:", reward)
@@ -120,7 +103,7 @@ Write a short, polite and professional reply.
     total_reward_all += total_reward
 
 # ===============================
-# Final Result
+# Final Output
 # ===============================
 print("\n================ FINAL RESULT ================")
 print("🔥 Total Score:", total_reward_all)
