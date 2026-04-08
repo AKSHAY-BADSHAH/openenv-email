@@ -1,4 +1,6 @@
+from app.models import Observation
+
 def get_task():
-    return """Extract important details from this email:
-Subject: Meeting Reminder
-Body: Hi John, let's meet on 15 March at 5 PM in the office."""
+    return Observation(
+        email_text="Extract important details:\nMeeting with John on 15 March at 5 PM."
+    )
