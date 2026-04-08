@@ -6,7 +6,7 @@ from app.logger import log_task
 # ===============================
 # Load model
 # ===============================
-generator = pipeline("text-generation", model="distilgpt2")
+generator = pipeline("text2text-generation", model="google/flan-t5-small")
 
 # Proper generation config (NO warnings)
 gen_config = GenerationConfig(
