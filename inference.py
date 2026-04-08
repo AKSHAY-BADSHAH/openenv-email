@@ -4,10 +4,10 @@ from app.models import Action
 from app.logger import log_task
 
 # ===============================
-# Load Better Model (IMPORTANT)
+# Load Model (FIXED VERSION)
 # ===============================
 generator = pipeline(
-    "text2text-generation",
+    "text-generation",   # ✅ supported task
     model="google/flan-t5-small"
 )
 
@@ -34,46 +34,44 @@ for episode in range(2):
         print("📩 TASK:", obs.email_text)
 
         # ===============================
-        # SMART PROMPTS (OPTIMIZED)
+        # SMART PROMPTS
         # ===============================
         if "Classify" in obs.email_text:
-            prompt = f"""
-Classify the following email as spam or important.
-
-{obs.email_text}
-
-Answer only one word: spam or important.
-"""
+            prompt = f"Classify email as spam or important:\n{obs.email_text}\nAnswer:"
 
         elif "Extract" in obs.email_text:
-            prompt = f"""
-Extract name, date, and time from this email.
-
-{obs.email_text}
-
-Answer format:
-Name, Date, Time
-"""
+            prompt = f"Extract name, date, time:\n{obs.email_text}\nAnswer:"
 
         elif "Write" in obs.email_text:
-            prompt = f"""
-Write a short, polite and professional reply to this email.
-
-{obs.email_text}
-"""
+            prompt = f"Write a short professional reply:\n{obs.email_text}\nReply:"
 
         else:
             prompt = obs.email_text
 
         # ===============================
-        # GENERATE (CLEAN)
+        # GENERATE OUTPUT
         # ===============================
         result = generator(
             prompt,
-            max_new_tokens=50
+            max_new_tokens=50,
+            do_sample=False
         )
 
-        reply = result[0]["generated_text"].strip()
+        raw_output = result[0]["generated_text"]
+
+        # Clean output
+        reply = raw_output.replace(prompt, "").strip().split("\n")[0]
+
+        # ===============================
+        # FALLBACK FIX (IMPORTANT)
+        # ===============================
+        if "Classify" in obs.email_text:
+            if "spam" in reply.lower():
+                reply = "spam"
+            elif "important" in reply.lower():
+                reply = "important"
+            else:
+                reply = "spam"
 
         print("🤖 AI:", reply)
 
