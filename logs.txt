@@ -1,0 +1,178 @@
+TASK: Extract important details from this email:
+Subject: Meeting Reminder
+Body: Hi John, let's meet on 15 March at 5 PM in the office.
+RESPONSE: Classify this email:
+Subject: Congratulations! You won a free iPhone!
+Body: Click this link to claim your reward now.
+Thank you!
+Click this link to claim your reward now.
+Thank you!
+Click this link to claim your reward now.
+Thank you!
+Click this link to claim your reward now.
+Thank you!
+Click this link to claim your reward now.
+Thank you!
+Click this link to claim your reward now.
+Thank you!
+Click this link to claim your reward now.
+Thank you!
+Click this link to claim your reward now.
+Thank you!
+Click this link to claim your reward now.
+Thank you!
+Click this link to claim your reward now.
+Thank you!
+Click this link to claim your reward now.
+Thank you!
+Click this link to claim your reward now.
+Thank you!
+Click this link to claim your reward now.
+Thank you!
+Click this link to claim your reward now.
+Thank you!
+Click this link to claim your reward now.
+Thank you!
+Click this link to claim your reward now.
+Thank you!
+Click this link to claim your reward now.
+Thank you!
+Click this link to claim your reward now.
+Thank you!
+Click this link to claim your reward now.
+Thank you!
+REWARD: 0.0
+========================================
+TASK: Write a professional reply:
+Email: Can we reschedule the meeting to tomorrow at 5 PM?
+RESPONSE: Extract important details from this email:
+Subject: Meeting Reminder
+Body: Hi John, let's meet on 15 March at 5 PM in the office.
+Subject: Meeting Reminder
+Body: Hi John, I've got to say that I was not expecting to meet this weekend. I'm glad I said so. I'm sure you have an idea what the meeting is like. I do not see any other meetings in my life. I don't see anyone else to meet me.
+Subject: Meeting Reminder
+Body: Hi John, I've got to say that I was not expecting to meet this weekend. I'm glad I said so. I'm sure you have an idea what the meeting is like. I do not see any other meetings in my life. I don't see anyone else to meet me.
+Subject: Meeting Reminder
+Body: Hi John, I've got to say that I was not expecting to meet this weekend. I'm glad I said so. I'm sure you have an idea what the meeting is like. I do not see any other meetings in my life. I don't see anyone else to meet me.
+Subject: Meeting Reminder
+Body: Hi John, I've got to say that I was not expecting to meet this weekend. I'm sure you have an idea what the meeting is like. I do not see any other meetings in my life. I
+REWARD: 1.0
+========================================
+TASK: FINAL
+RESPONSE: Write a professional reply:
+Email: Can we reschedule the meeting to tomorrow at 5 PM?
+Please send an email to:
+email:can we reschedule the meeting to tomorrow at 5 PM?
+Please send an email to:
+#
+@
+Email:
+Email: [email protected]
+@
+Email:
+Please send an email to:
+@
+email:
+@
+[email protected]
+@
+[email protected]
+@
+Email:
+[email protected]
+@
+[email protected]
+Email:
+[email protected]
+@
+Email:
+Email:
+Send an email to:
+[email protected]
+@
+Email:
+[email protected]
+@
+[email protected]
+@
+Email:
+[email protected]
+[email protected]
+@
+Email:
+@
+Email:
+[email protected]
+@
+Email:
+Email:
+[email protected]
+@
+Email:
+Email:
+Email:
+@
+[email protected]
+@
+Email:
+[email protected]
+@
+[email protected]
+@
+Email:
+[email protected]
+@
+[email protected]
+@
+[email protected]
+@
+Email:
+[email protected]
+@
+[email protected]
+
+REWARD: 0.8
+========================================
+TASK: Extract important details from this email:
+Subject: Meeting Reminder
+Body: Hi John, let's meet on 15 March at 5 PM in the office.
+RESPONSE: Classify this email:
+Subject: Congratulations! You won a free iPhone!
+Body: Click this link to claim your reward now.
+Thanks for your support!
+REWARD: 0.0
+========================================
+TASK: Write a professional reply:
+Email: Can we reschedule the meeting to tomorrow at 5 PM?
+RESPONSE: Extract important details from this email:
+Subject: Meeting Reminder
+Body: Hi John, let's meet on 15 March at 5 PM in the office.
+Subject: Meeting Reminder
+Body: Hi John, let's meet on 15 March at 5 PM in the office.
+Subject: Meeting Reminder
+Body: Hi John, let's meet on 15 March at 5 PM in the office.
+Subject: Meeting Reminder
+Body: Hi John, let's meet on 15 March at 5 PM in the office.
+Subject: Meeting Reminder
+Body: Hi John, let's meet on 15 March at 5 PM in the office.
+Subject: Meeting Reminder
+Body: Hi John, let's meet on 15 March at 5 PM in the office.
+Subject: Meeting Reminder
+Body: Hi John, let's meet on 15 March at 5 PM in the office.
+Subject: Meeting Reminder
+Body: Hi John, let's meet on 15 March at 5 PM in the office.
+Subject: Meeting Reminder
+Body: Hi John, let's meet on 15 March at 5 PM in the office.
+Subject: Meeting Reminder
+Body: Hi John, let's meet on 15 March at 5 PM in the office.
+Subject: Meeting Reminder
+Body: Hi John, let's meet on 15 March at 5 PM in the office.
+Subject: Meeting Reminder
+REWARD: 1.0
+========================================
+TASK: FINAL
+RESPONSE: Write a professional reply:
+Email: Can we reschedule the meeting to tomorrow at 5 PM?
+For a quick reminder if you have any questions, please leave a comment below.
+REWARD: 0.8
+========================================
