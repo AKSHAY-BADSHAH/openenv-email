@@ -5,31 +5,31 @@ from app.models import Action
 app = FastAPI()
 env = EmailEnv()
 
-# ROOT
+# ✅ ROOT (required)
 @app.get("/")
 def home():
-    return {"message": "OpenEnv Email Environment Running"}
+    return {"status": "ok"}
 
-# RESET
+# ✅ RESET
 @app.post("/reset")
 def reset():
     obs = env.reset()
     return {
-        "observation": obs.model_dump()   # ✅ FIXED
+        "observation": obs.model_dump()
     }
 
-# STEP
+# ✅ STEP
 @app.post("/step")
 def step(action: Action):
     obs, reward, done, info = env.step(action)
     return {
-        "observation": obs.model_dump(),  # ✅ FIXED
-        "reward": float(reward),          # ✅ ensure float
-        "done": bool(done),               # ✅ ensure bool
-        "info": info or {}                # ✅ never None
+        "observation": obs.model_dump(),
+        "reward": float(reward),
+        "done": bool(done),
+        "info": {}
     }
 
-# STATE
+# ✅ STATE
 @app.get("/state")
 def state():
     return env.state()
