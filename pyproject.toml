@@ -1,0 +1,16 @@
+[project]
+name = "openenv-email"
+version = "0.1.0"
+description = "OpenEnv Email Task Environment"
+authors = [{ name = "Akshay" }]
+dependencies = [
+    "fastapi",
+    "uvicorn",
+    "pydantic",
+    "transformers",
+    "torch"
+]
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
