@@ -6,7 +6,7 @@ from app.logger import log_task
 # Load model
 generator = pipeline("text-generation", model="distilgpt2")
 
-# ✅ Fix pad_token warning
+# Fix padding warning
 generator.tokenizer.pad_token_id = generator.model.config.eos_token_id
 
 env = EmailEnv()
@@ -15,7 +15,6 @@ print("🚀 Starting Email AI Environment...\n")
 
 total_reward_all = 0
 
-# 🔁 Multiple runs (evaluation)
 for episode in range(2):
 
     print(f"\n================ EPISODE {episode + 1} ================\n")
@@ -26,14 +25,42 @@ for episode in range(2):
     while True:
         print("📩 TASK:", obs.email_text)
 
-        # ✅ Clean generation (NO warnings)
+        # 🔥 SMART PROMPT (fixes all issues)
+        if "Classify" in obs.email_text:
+            prompt = f"""
+You are an email classifier.
+
+{obs.email_text}
+
+Answer ONLY one word: spam or important.
+"""
+        elif "Extract" in obs.email_text:
+            prompt = f"""
+You are an email assistant.
+
+{obs.email_text}
+
+Extract only key details: name, date, time.
+Give short answer.
+"""
+        else:
+            prompt = f"""
+You are a professional assistant.
+
+{obs.email_text}
+
+Write a short, polite, professional reply.
+"""
+
+        # ✅ CLEAN GENERATION (no warnings)
         result = generator(
-            "Answer clearly:\n" + obs.email_text,
+            prompt,
             max_new_tokens=50,
-            num_return_sequences=1
+            do_sample=True,
+            temperature=0.7
         )
 
-        reply = result[0]['generated_text']
+        reply = result[0]["generated_text"]
 
         print("🤖 AI:", reply)
 
@@ -43,7 +70,7 @@ for episode in range(2):
 
         print("🏆 Reward:", reward)
 
-        # ✅ Logging
+        # Logging
         log_task(obs.email_text if not done else "FINAL", reply, reward)
 
         total_reward += reward
