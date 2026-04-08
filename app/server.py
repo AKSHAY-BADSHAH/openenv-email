@@ -5,7 +5,7 @@ from app.models import Action
 app = FastAPI()
 env = EmailEnv()
 
-# ✅ ROOT (IMPORTANT)
+# ROOT
 @app.get("/")
 def home():
     return {"message": "OpenEnv Email Environment Running"}
@@ -14,17 +14,19 @@ def home():
 @app.post("/reset")
 def reset():
     obs = env.reset()
-    return {"observation": obs.dict()}
+    return {
+        "observation": obs.model_dump()   # ✅ FIXED
+    }
 
 # STEP
 @app.post("/step")
 def step(action: Action):
     obs, reward, done, info = env.step(action)
     return {
-        "observation": obs.dict(),
-        "reward": reward,
-        "done": done,
-        "info": info
+        "observation": obs.model_dump(),  # ✅ FIXED
+        "reward": float(reward),          # ✅ ensure float
+        "done": bool(done),               # ✅ ensure bool
+        "info": info or {}                # ✅ never None
     }
 
 # STATE
