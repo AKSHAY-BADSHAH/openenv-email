@@ -1,4 +1,6 @@
+from app.models import Observation
+
 def get_task():
-    return """Classify this email:
-Subject: Congratulations! You won a free iPhone!
-Body: Click this link to claim your reward now."""
+    return Observation(
+        email_text="Classify this email:\nSubject: Win a free iPhone!\nBody: Click here to claim."
+    )
