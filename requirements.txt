@@ -1,3 +1,4 @@
 pydantic
-openai
+transformers
+torch
 python-dotenv
