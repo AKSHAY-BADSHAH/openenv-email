@@ -4,10 +4,10 @@ from app.models import Action
 from app.logger import log_task
 
 # ===============================
-# Load Model (FIXED VERSION)
+# Correct pipeline for FLAN-T5
 # ===============================
 generator = pipeline(
-    "text-generation",   # ✅ supported task
+    "text2text-generation",
     model="google/flan-t5-small"
 )
 
@@ -20,9 +20,6 @@ print("🚀 Starting Email AI Environment...\n")
 
 total_reward_all = 0
 
-# ===============================
-# Run Episodes
-# ===============================
 for episode in range(2):
 
     print(f"\n================ EPISODE {episode + 1} ================\n")
@@ -37,41 +34,26 @@ for episode in range(2):
         # SMART PROMPTS
         # ===============================
         if "Classify" in obs.email_text:
-            prompt = f"Classify email as spam or important:\n{obs.email_text}\nAnswer:"
+            prompt = f"Classify this email as spam or important:\n{obs.email_text}"
 
         elif "Extract" in obs.email_text:
-            prompt = f"Extract name, date, time:\n{obs.email_text}\nAnswer:"
+            prompt = f"Extract name, date, and time from this email:\n{obs.email_text}"
 
         elif "Write" in obs.email_text:
-            prompt = f"Write a short professional reply:\n{obs.email_text}\nReply:"
+            prompt = f"Write a short professional reply:\n{obs.email_text}"
 
         else:
             prompt = obs.email_text
 
         # ===============================
-        # GENERATE OUTPUT
+        # GENERATE (CORRECT WAY)
         # ===============================
         result = generator(
             prompt,
-            max_new_tokens=50,
-            do_sample=False
+            max_new_tokens=50
         )
 
-        raw_output = result[0]["generated_text"]
-
-        # Clean output
-        reply = raw_output.replace(prompt, "").strip().split("\n")[0]
-
-        # ===============================
-        # FALLBACK FIX (IMPORTANT)
-        # ===============================
-        if "Classify" in obs.email_text:
-            if "spam" in reply.lower():
-                reply = "spam"
-            elif "important" in reply.lower():
-                reply = "important"
-            else:
-                reply = "spam"
+        reply = result[0]["generated_text"].strip()
 
         print("🤖 AI:", reply)
 
@@ -83,9 +65,6 @@ for episode in range(2):
 
         print("🏆 Reward:", reward)
 
-        # ===============================
-        # Logging
-        # ===============================
         log_task(
             obs.email_text if not done else "FINAL",
             reply,
@@ -100,8 +79,5 @@ for episode in range(2):
     print(f"\n🎯 Episode Score: {total_reward}")
     total_reward_all += total_reward
 
-# ===============================
-# Final Output
-# ===============================
 print("\n================ FINAL RESULT ================")
 print("🔥 Total Score:", total_reward_all)
