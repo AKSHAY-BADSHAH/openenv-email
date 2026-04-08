@@ -1,14 +1,3 @@
-name: email-env
-description: AI Email Assistant Environment
+name: openenv-email
 version: 1.0
-
-tasks:
-  - easy
-  - medium
-  - hard
-
-actions:
-  type: text
-
-observations:
-  type: text
+description: Email task simulation environment
