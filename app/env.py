@@ -32,4 +32,8 @@ class EmailEnv:
         return {
             "current_index": self.current_index,
             "total_tasks": len(self.tasks)
+<<<<<<< HEAD
         }
+=======
+        }
+>>>>>>> a9bb911 (final phase 2 fix)

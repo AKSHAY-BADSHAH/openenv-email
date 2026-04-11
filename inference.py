@@ -43,4 +43,8 @@ def main():
 
 
 if __name__ == "__main__":
+<<<<<<< HEAD
     main()
+=======
+    main()
+>>>>>>> a9bb911 (final phase 2 fix)

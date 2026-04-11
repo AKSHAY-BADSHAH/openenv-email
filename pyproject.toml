@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 [project]
 name = "openenv-email"
 version = "0.1.0"
@@ -18,3 +19,25 @@ server = "server.app:main"
 [build-system]
 requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
+=======
+[project]
+name = "openenv-email"
+version = "0.1.0"
+description = "OpenEnv Email Task Environment"
+authors = [{ name = "Akshay" }]
+dependencies = [
+    "fastapi",
+    "uvicorn",
+    "pydantic",
+    "transformers",
+    "torch",
+    "openenv-core>=0.2.0"
+]
+
+[project.scripts]
+server = "server.app:main"
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+>>>>>>> a9bb911 (final phase 2 fix)

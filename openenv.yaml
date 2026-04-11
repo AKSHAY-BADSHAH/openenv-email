@@ -1,3 +1,7 @@
 name: openenv-email
 version: 1.0
+<<<<<<< HEAD
 description: Email task simulation environment
+=======
+description: Email task simulation environment
+>>>>>>> a9bb911 (final phase 2 fix)

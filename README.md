@@ -19,4 +19,8 @@ This project simulates real-world email tasks using OpenEnv.
 
 ## Run (Local)
 ```bash
+<<<<<<< HEAD
 python inference.py
+=======
+python inference.py
+>>>>>>> a9bb911 (final phase 2 fix)

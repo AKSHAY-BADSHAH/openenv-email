@@ -12,4 +12,8 @@ def grade(task_text, response):
     elif "write" in task_text.lower():
         return 1.0 if "meeting" in response else 0.5
 
+<<<<<<< HEAD
     return 0.0
+=======
+    return 0.0
+>>>>>>> a9bb911 (final phase 2 fix)
