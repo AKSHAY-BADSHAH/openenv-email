@@ -9,12 +9,10 @@ class EmailEnv:
         self.tasks = [easy(), medium(), hard()]
         self.current_index = 0
 
-    # ✅ RESET
     def reset(self):
         self.current_index = 0
         return self.tasks[self.current_index]
 
-    # ✅ STEP
     def step(self, action):
         task = self.tasks[self.current_index]
 
@@ -24,13 +22,12 @@ class EmailEnv:
         done = self.current_index >= len(self.tasks)
 
         if not done:
-            next_obs = self.tasks[self.current_index]
+            obs = self.tasks[self.current_index]
         else:
-            next_obs = task  # last observation
+            obs = task
 
-        return next_obs, float(reward), bool(done), {}
+        return obs, float(reward), bool(done), {}
 
-    # ✅ STATE (IMPORTANT FOR VALIDATION)
     def state(self):
         return {
             "current_index": self.current_index,
