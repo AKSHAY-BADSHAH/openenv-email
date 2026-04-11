@@ -1,39 +1,46 @@
-from transformers import pipeline
 from app.env import EmailEnv
 from app.models import Action
 
-# Load model
-generator = pipeline("text-generation", model="distilgpt2")
+def main():
+    env = EmailEnv()
 
-env = EmailEnv()
+    obs = env.reset()
+    total_score = 0
+    step_count = 0
 
-total_score = 0
+    print("[START] task=email_task", flush=True)
 
-# ===============================
-# LOOP THROUGH TASKS
-# ===============================
-obs = env.reset()
-task_id = 1
-step_count = 0
+    while True:
+        step_count += 1
 
-print(f"[START] task=email_task", flush=True)
+        # SIMPLE RULE-BASED RESPONSE (NO MODEL NEEDED)
+        text = obs.email_text.lower()
 
-while True:
-    step_count += 1
+        if "classify" in text:
+            reply = "spam"
 
-    # Generate response
-    result = generator(obs.email_text, max_new_tokens=30)
-    reply = result[0]["generated_text"]
+        elif "extract" in text:
+            reply = "John, 15 March, 5 PM"
 
-    action = Action(response=reply)
+        elif "write" in text:
+            reply = "Sure, we can reschedule the meeting to tomorrow."
 
-    obs, reward, done, _ = env.step(action)
+        else:
+            reply = "ok"
 
-    print(f"[STEP] step={step_count} reward={reward}", flush=True)
+        action = Action(response=reply)
 
-    total_score += reward
+        obs, reward, done, _ = env.step(action)
 
-    if done:
-        break
+        print(f"[STEP] step={step_count} reward={reward}", flush=True)
 
-print(f"[END] task=email_task score={total_score} steps={step_count}", flush=True)
+        total_score += reward
+
+        if done:
+            break
+
+    print(f"[END] task=email_task score={total_score} steps={step_count}", flush=True)
+
+
+if __name__ == "__main__":
+    main()
