@@ -1,17 +1,22 @@
-# Email AI Environment (OpenEnv)
+---
+title: OpenEnv Email Assistant
+emoji: 📧
+colorFrom: blue
+colorTo: green
+sdk: docker
+app_file: inference.py
+pinned: false
+---
 
-## Overview
-This project simulates an AI assistant handling email tasks.
+# OpenEnv Email Assistant
+
+This project simulates real-world email tasks using OpenEnv.
 
 ## Tasks
-- Easy: Email classification
-- Medium: Extract information
-- Hard: Generate reply
+- Email classification
+- Information extraction
+- Reply generation
 
-## Run
-pip install -r requirements.txt
+## Run (Local)
+```bash
 python inference.py
-
-## Docker
-docker build -t email-env .
-docker run email-env
