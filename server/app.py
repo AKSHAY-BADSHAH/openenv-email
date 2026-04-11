@@ -1,5 +1,4 @@
 from fastapi import FastAPI
-from fastapi.responses import JSONResponse
 from app.env import EmailEnv
 from app.models import Action
 import uvicorn
@@ -11,30 +10,29 @@ env = EmailEnv()
 def home():
     return {"status": "ok"}
 
-# ✅ RESET (RAW RESPONSE)
+# ✅ RESET (ONLY observation)
 @app.post("/reset")
 def reset():
     obs = env.reset()
-
-    return JSONResponse(content={
+    return {
         "observation": {
             "email_text": obs.email_text
         }
-    })
+    }
 
-# ✅ STEP (RAW RESPONSE)
+# ✅ STEP (full format)
 @app.post("/step")
 def step(action: Action):
     obs, reward, done, _ = env.step(action)
 
-    return JSONResponse(content={
+    return {
         "observation": {
             "email_text": obs.email_text
         },
         "reward": float(reward),
         "done": bool(done),
         "info": {}
-    })
+    }
 
 @app.get("/state")
 def state():
